@@ -120,11 +120,11 @@ for i in range(len_Nt_2L): #+1
     R_mean_2L_plot[i] = np.mean(R_boot_2L_plot[i])
     R_stdev_2L_plot[i] = np.std(R_boot_2L_plot[i])
 
-x=np.arange((1/41)*a_inv_gev,(1/tmin)*a_inv_gev,0.0001)
+x=np.arange((1/41)*a_inv_gev,(1/25)*a_inv_gev,0.0001)
 x_plot=np.arange((1/41)*a_inv_gev,(1/15)*a_inv_gev,0.0001)
 cs = CubicSpline(T_mean, R_mean)
 cs_boot = np.zeros(boot_samples,dtype=PPoly)
-x_2L=np.arange((1/41)*a_inv_gev_2L,(1/tmin_2L)*a_inv_gev_2L,0.0001)
+x_2L=np.arange((1/41)*a_inv_gev_2L,(1/25)*a_inv_gev_2L,0.0001)
 x_plot_2L=np.arange((1/41)*a_inv_gev_2L,(1/15)*a_inv_gev_2L,0.0001)
 cs_2L = CubicSpline(T_mean_2L, R_mean_2L)
 cs_boot_2L = np.zeros(boot_samples,dtype=PPoly)
