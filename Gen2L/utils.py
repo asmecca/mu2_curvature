@@ -58,7 +58,7 @@ corr_g_zero_A, corr_g_conn_A, corr_cross_A, corr_disc_A, corr_sum_A, corr_total_
 corr_g_zero, corr_g_conn, corr_cross, corr_disc, corr_sum, corr_total = [],[],[],[],[],[]
 corr_t, T_lat = [],[]
 
-def get_correlators(path_to_corrs,boot_samples,Nt_array):
+def get_correlators(path_to_corrs,boot_samples,Nt_array,T_array):
     for i in range(0,len(Nt_array)):
         Nt = Nt_array[i]
         T = T_array[i]
