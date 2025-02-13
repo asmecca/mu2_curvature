@@ -84,8 +84,8 @@ Bellwied = [0.0149,0.0021]
 T_chiral = [182,2] #182(2)
 T_chiral_2L = [167,3] #167(3)
 
-filename= f"interpolate/boot_pseudo_T.dat"
-filename_2L= f"interpolate/boot_gen2l_pseudo_T.dat"
+filename= f"gen2/interpolate/boot_pseudo_T.dat"
+filename_2L= f"Gen2L/interpolate/boot_gen2l_pseudo_T.dat"
 f=open(filename,'r')
 
 mu,T,T_minus,T_plus=[],[],[],[]
