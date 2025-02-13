@@ -209,7 +209,7 @@ for i in range(0,len(Nt_array)):
     b_R_mu += [b_R_num_mu[i]/b_R_den_mu[i]]
 
 mu_mev = mu*1000
-R_mu_var_total=np.zeros((len(Nt_array),64),dtype=float)
+R_mu_var_total=[]
 for i in range(0,len(Nt_array)):
         tmin = 1
         plt.xlabel(r"$\tau T$")
@@ -226,7 +226,7 @@ for i in range(0,len(Nt_array)):
             R_mu_stdev[t] = np.std(tmp[t])
         symmetrise(R_mu_mean,Nt_array[i])
         symmetrise(R_mu_stdev,Nt_array[i])
-        R_mu_var_total[i] = R_mu_var
+        R_mu_var_total += [R_mu_var]
         plt.errorbar(x=np.asarray(corr_t[i][tmin:Nt_array[i]])*T_lat[i],y=R_mu_mean[tmin:Nt_array[i]],yerr=R_mu_stdev[tmin:Nt_array[i]],label=r"$T=$"+str(int(T_array[i]*1000))+"$\mathrm{MeV}$",color=color_list[i],capsize=2)
 plt.text(0.5, 0.21, r'$\mu_q =$'+str(mu_mev)+' $\mathrm{MeV}$', fontsize=18, ha='center')    
 plt.legend(ncol=2,loc='best')
