@@ -44,16 +44,16 @@ mu = float(sys.argv[1])
 path_to_corr = "DATA/Gen2L" # Path to directory with name NtxNs containing the correlators
 
 #########################
-f_check = f.open(path_to_corr+f"/16x32/analysis_mu_{mu}/boot//res.vector.dat",'r')
+f_check = f.open(path_to_corr+f"/16x32/analysis_mu_{mu}/boot/res.vector.dat",'r')
 C=[]
 for l in f.readlines():
     x=l.split()
     C += [float(x[0])]
-boot_check = int(len(C)/Nt)
+boot_check = int(len(C)/16)
 print('boot samples is: ',boot_check)
 ########################
 
-corr_g_zero,corr_g_zero_A,corr_total,corr_total_A = get_correlators(path_to_corr,boot_samples)
+corr_g_zero,corr_g_zero_A,corr_total,corr_total_A = get_correlators(path_to_corr,boot_samples,Nt_array)
 
 plotpath = '/Users/antoniosmecca/Documents/Physics/pdoc_Swansea/mu2/Code'
 if not os.path.exists(plotpath+'/plots'):
