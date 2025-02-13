@@ -104,9 +104,7 @@ for i in range(0,len(Nt_array)):
 
 
 for i in range(0,len(Nt_array)):
-    for b in range(0,boot_samples):
-        for t in range(0,Nt_array[i]):
-            b_R += [b_R_num[i][b][t]/b_R_den[i][b][t]]
+    b_R += [b_R_num[i]/b_R_den[i]]
 
 R_var_tot = np.zeros((len(Nt_array),64),dtype=float)
 for i in range(0,len(Nt_array)):
