@@ -85,7 +85,7 @@ def get_correlators(path_to_corrs,boot_samples,Nt_array,T_array,a_inv_gev,mu):
         corr_t+=[t]
         corr_total+=[total]
         corr_total_A += [A_total]
-    return corr_g_zero,corr_g_zero_A,corr_total,corr_total_A
+    return corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A
 
 def correlated_chi2(x_data, y_data, model, theta, cov_matrix):
     """
