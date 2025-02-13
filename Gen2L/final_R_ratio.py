@@ -224,6 +224,7 @@ for i in range(0,len(Nt_array)):
                 tmp[t][b] = float(b_R_mu[i][b*Nt_array[i]+t])
             R_mu_mean[t] = np.mean(tmp[t])
             R_mu_stdev[t] = np.std(tmp[t])
+            R_mu_var[t] = np.var(tmp[t])
         symmetrise(R_mu_mean,Nt_array[i])
         symmetrise(R_mu_stdev,Nt_array[i])
         R_mu_var_total += [R_mu_var]
