@@ -37,24 +37,12 @@ tminarray = [3, 4, 4, 5, 6, 7, 8]
 
 Nt_array =[16, 20, 24, 28, 32, 36, 40]
 
-boot_samples = 2000
-
 mu = float(sys.argv[1])
 
 
 path_to_corr = "DATA/Gen2L" # Path to directory with name NtxNs containing the correlators
 
-#########################
-f = open(path_to_corr+f"/16x32/analysis_mu_{mu}/boot/res.vector.dat",'r')
-C=[]
-for l in f.readlines():
-    x=l.split()
-    C += [float(x[0])]
-boot_check = int(len(C)/16)
-print('boot samples is: ',boot_check)
-########################
-
-corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A = get_correlators(path_to_corr,boot_samples,Nt_array,T_array,a_inv_gev,mu)
+corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A,boot_samples = get_correlators(path_to_corr,Nt_array,T_array,a_inv_gev,mu)
 
 plotpath = '..'
 if not os.path.exists(plotpath+'/plots'):
