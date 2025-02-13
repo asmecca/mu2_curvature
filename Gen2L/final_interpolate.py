@@ -61,6 +61,9 @@ if mu != 0.0:
     R_boot = np.delete(R_boot_plot,1,axis=0)
     len_Nt = len_Nt-1
     print('length: ',len(T_boot))
+else:
+    T_boot = T_boot_plot
+    R_boot = R_boot_plot
 
 T_mean = np.zeros(len_Nt,dtype=float)
 T_mean_plot = np.zeros(len_Nt,dtype=float)
