@@ -294,12 +294,12 @@ if not os.path.exists(datapath):
 g=open("interpolate/boot_gen2l_zero.dat","w")
 for i in range(0,len(Nt_array)):
     for b in range(0,boot_samples):
-        g.write(str(Nt_array[i])+' '+str(R_av[i][b])+' '+str(len(Nt_array))+'\n')
+        g.write(str(Nt_array[i])+' '+str(R_av[i][b])+' '+str(len(Nt_array))+' '+str(boot_samples)+'\n')
 
 
 g=open(f"interpolate/boot_gen2l_full_mu_{mu}.dat","w")
 for i in range(0,len(Nt_array)):
     for b in range(0,boot_samples):
-        g.write(str(Nt_array[i])+' '+str(R_av_mu[i][b])+' '+str(len(Nt_array))+'\n')
+        g.write(str(Nt_array[i])+' '+str(R_av_mu[i][b])+' '+str(len(Nt_array))+' '+str(boot_samples)+'\n')
 
     
