@@ -55,7 +55,7 @@ def terms_corr_boot(path,channel,Nt,boot_samples):
 
 
 
-def get_correlators(path_to_corrs,boot_samples,Nt_array,T_array,a_inv_gev):
+def get_correlators(path_to_corrs,boot_samples,Nt_array,T_array,a_inv_gev,mu):
     corr_g_zero_A, corr_g_conn_A, corr_cross_A, corr_disc_A, corr_sum_A, corr_total_A = [],[],[],[],[],[]
     corr_g_zero, corr_g_conn, corr_cross, corr_disc, corr_sum, corr_total = [],[],[],[],[],[]
     corr_t, T_lat = [],[]    
