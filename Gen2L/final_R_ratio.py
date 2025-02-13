@@ -8,7 +8,7 @@ import os
 import sys
 from scipy.optimize import curve_fit
 from utils import correlated_chi_squared
-from utils import get_correlators
+from utils import get_correlators_gen2l
 
 from cycler import cycler
 
@@ -42,7 +42,7 @@ mu = float(sys.argv[1])
 
 path_to_corr = "DATA/Gen2L" # Path to directory with name NtxNs containing the correlators
 
-corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A,boot_samples = get_correlators(path_to_corr,Nt_array,T_array,a_inv_gev,mu)
+corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A,boot_samples = get_correlators_gen2l(path_to_corr,Nt_array,T_array,a_inv_gev,mu)
 
 plotpath = '..'
 if not os.path.exists(plotpath+'/plots'):

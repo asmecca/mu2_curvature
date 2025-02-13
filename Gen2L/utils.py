@@ -55,7 +55,7 @@ def terms_corr_boot(path,channel,Nt,boot_samples):
 
 
 
-def get_correlators(path_to_corrs,Nt_array,T_array,a_inv_gev,mu):
+def get_correlators_gen2l(path_to_corrs,Nt_array,T_array,a_inv_gev,mu):
     corr_g_zero_A, corr_g_conn_A, corr_cross_A, corr_disc_A, corr_sum_A, corr_total_A = [],[],[],[],[],[]
     corr_g_zero, corr_g_conn, corr_cross, corr_disc, corr_sum, corr_total = [],[],[],[],[],[]
     corr_t, T_lat = [],[]    
@@ -66,12 +66,55 @@ def get_correlators(path_to_corrs,Nt_array,T_array,a_inv_gev,mu):
         path = path_to_corrs+f"/{Nt}x32/analysis_mu_{mu}"
 
         #########################
-        f = open(path_to_corr+f"/16x32/analysis_mu_{mu}/boot/res.vector.dat",'r')
+        f = open(path_to_corrs+f"/{Nt}x32/analysis_mu_{mu}/boot/res.vector.dat",'r')
         C=[]
         for l in f.readlines():
             x=l.split()
             C += [float(x[0])]
-            boot_samples = int(len(C)/16)
+            boot_samples = int(len(C)/Nt)
+        print('boot samples is: ',boot_samples)
+        ########################
+
+
+        g_zero,g_conn,cross_term,disc_term,V_sum,total=terms_corr_boot(path,'res.vector.dat',Nt,boot_samples)
+        g_zero_A,g_conn_A,cross_term_A,disc_term_A,A_sum,A_total=terms_corr_boot(path,'res.axial.dat',Nt,boot_samples)
+
+        t=[]
+        for b in range(0,boot_samples):
+            for j in range(0,Nt):
+                t += [j]
+        corr_g_zero_A += [g_zero_A]
+        corr_g_conn_A += [g_conn_A]
+        corr_cross_A += [cross_term_A]
+        corr_disc_A += [disc_term_A]
+        corr_sum_A += [A_sum]
+        corr_g_zero += [g_zero]
+        corr_g_conn += [g_conn]
+        corr_cross += [cross_term]
+        corr_disc += [disc_term]
+        corr_sum += [V_sum]
+        corr_t+=[t]
+        corr_total+=[total]
+        corr_total_A += [A_total]
+    return corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A,boot_samples
+
+def get_correlators_gen2(path_to_corrs,Nt_array,T_array,a_inv_gev,mu):
+    corr_g_zero_A, corr_g_conn_A, corr_cross_A, corr_disc_A, corr_sum_A, corr_total_A = [],[],[],[],[],[]
+    corr_g_zero, corr_g_conn, corr_cross, corr_disc, corr_sum, corr_total = [],[],[],[],[],[]
+    corr_t, T_lat = [],[]    
+    for i in range(0,len(Nt_array)):
+        Nt = Nt_array[i]
+        T = T_array[i]
+        T_lat += [float(float(T)/float(a_inv_gev))]
+        path = path_to_corrs+f"/{Nt}x24/analysis_mu_{mu}"
+
+        #########################
+        f = open(path_to_corrs+f"/{Nt}x24/analysis_mu_{mu}/boot/res.vector.dat",'r')
+        C=[]
+        for l in f.readlines():
+            x=l.split()
+            C += [float(x[0])]
+            boot_samples = int(len(C)/Nt)
         print('boot samples is: ',boot_samples)
         ########################
 
