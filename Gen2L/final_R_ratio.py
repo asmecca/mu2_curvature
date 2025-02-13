@@ -44,7 +44,7 @@ mu = float(sys.argv[1])
 path_to_corr = "DATA/Gen2L" # Path to directory with name NtxNs containing the correlators
 
 #########################
-f_check = f.open(path_to_corr+f"/{Nt}x32/analysis_mu_{mu}/boot//res.vector.dat",'r')
+f_check = f.open(path_to_corr+f"/16x32/analysis_mu_{mu}/boot//res.vector.dat",'r')
 C=[]
 for l in f.readlines():
     x=l.split()
