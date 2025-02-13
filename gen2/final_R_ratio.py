@@ -8,7 +8,7 @@ import os
 import sys
 from scipy.optimize import curve_fit
 from utils import correlated_chi_squared
-from utils import get_correlators_gen2l
+from utils import get_correlators_gen2
 
 from cycler import cycler
 
