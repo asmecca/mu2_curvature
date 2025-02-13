@@ -91,22 +91,22 @@ b_R_num=[]
 b_R_den=[]
 
 for i in range(0,len(Nt_array)):
-        R_num_tmp=[]
-        R_den_tmp=[]
-        for b in range(0,boot_samples):
-            for t in range(0,Nt_array[i]):
-                R_num_tmp += [b_vec[i][b*Nt_array[i]+t]/b_vec[i][b*Nt_array[i]+int(Nt_array[i]/2)] - b_axial[i][b*Nt_array[i]+t]/b_axial[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
-                R_den_tmp += [b_axial[i][b*Nt_array[i]+t]/b_axial[i][b*Nt_array[i]+int(Nt_array[i]/2)] + b_vec[i][b*Nt_array[i]+t]/b_vec[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
-        R_num_tmp = np.asarray(R_num_tmp)
-        R_den_tmp = np.asarray(R_den_tmp)
-        b_R_num += [R_num_tmp]
-        b_R_den += [R_den_tmp]        
+    R_num_tmp=[]
+    R_den_tmp=[]
+    for b in range(0,boot_samples):
+        for t in range(0,Nt_array[i]):
+            R_num_tmp += [b_vec[i][b*Nt_array[i]+t]/b_vec[i][b*Nt_array[i]+int(Nt_array[i]/2)] - b_axial[i][b*Nt_array[i]+t]/b_axial[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
+            R_den_tmp += [b_axial[i][b*Nt_array[i]+t]/b_axial[i][b*Nt_array[i]+int(Nt_array[i]/2)] + b_vec[i][b*Nt_array[i]+t]/b_vec[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
+    R_num_tmp = np.asarray(R_num_tmp)
+    R_den_tmp = np.asarray(R_den_tmp)
+    b_R_num += [R_num_tmp]
+    b_R_den += [R_den_tmp]        
 
-b_R_num = np.asarray(b_R_num)
-b_R_den = np.asarray(b_R_den)
 
-for i in range(0,len(Nt_array)):    
-    b_R += [b_R_num[i]/b_R_den[i]]
+for i in range(0,len(Nt_array)):
+    for b in range(0,boot_samples):
+        for t in range(0,Nt_array[i]):
+            b_R += [b_R_num[i][b][t]/b_R_den[i][b][t]]
 
 R_var_tot = np.zeros((len(Nt_array),64),dtype=float)
 for i in range(0,len(Nt_array)):
