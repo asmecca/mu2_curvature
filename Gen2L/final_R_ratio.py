@@ -53,7 +53,7 @@ boot_check = int(len(C)/16)
 print('boot samples is: ',boot_check)
 ########################
 
-corr_g_zero,corr_g_zero_A,corr_total,corr_total_A = get_correlators(path_to_corr,boot_samples,Nt_array,T_array)
+corr_g_zero,corr_g_zero_A,corr_total,corr_total_A = get_correlators(path_to_corr,boot_samples,Nt_array,T_array,a_inv_gev)
 
 plotpath = '..'
 if not os.path.exists(plotpath+'/plots'):
