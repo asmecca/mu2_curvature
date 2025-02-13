@@ -237,16 +237,6 @@ plt.legend(loc='best')
 fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/boot_fit_final_mu_method1.pdf",dpi=300)
 plt.show()
-plt.xlabel(r'$(\mu_B/T_{pc}^0)^2$')
-plt.ylabel(r'$T_{pc}(\mu_B)$ $\mathrm{[MeV]}$')
-plt.errorbar(x=mu_arr/(T0**2),y=T_mean,yerr=T_stdev,fmt='o',capsize=2)
-plt.plot(x**2/(T0**2),fit_func(x**2,*popt),color='red')
-plt.fill_between(x**2/(T0**2),fit_func(x**2,*popt_plus),fit_func(x**2,*popt_minus),alpha=0.3,color='red')
-plt.plot(mu_q[5:7]**2/(T0**2),mu_q[5:7]/3,linestyle='--',color='black',label=r'$\mu_q/T=1$')
-plt.legend(loc='best')
-fig=plt.gcf()
-fig.savefig(plotpath+f"/plots/boot_fit_final_mu_method1_bis_bis_B2.pdf",dpi=300)
-plt.show()
 
 
 res = [popt[0],perr[0]]
