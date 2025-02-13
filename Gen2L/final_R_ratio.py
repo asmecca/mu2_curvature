@@ -242,8 +242,8 @@ for i in range(0,len(Nt_array)):
         tmp_1=0
         tmp_2=0            
         for j in range(tmin, int(Nt_array[i]/2)-1):             
-            tmp_1 = tmp_1 + b_R_mu[i][b*Nt_array[i]+j]/R_mu_var_tot[i][j]
-            tmp_2 = tmp_2 + 1/R_mu_var_tot[i][j]
+            tmp_1 = tmp_1 + b_R_mu[i][b*Nt_array[i]+j]/R_mu_var_total[i][j]
+            tmp_2 = tmp_2 + 1/R_mu_var_total[i][j]
         R_tmp += [tmp_1/tmp_2]
     R_av_mu += [np.asarray(R_tmp)]
 
