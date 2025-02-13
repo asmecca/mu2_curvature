@@ -241,7 +241,7 @@ for i in range(0,len(Nt_array)):
     for b in range(0,boot_samples):
         tmp_1=0
         tmp_2=0            
-        for j in range(tmin, int(len(R_mu[i])/2)-1):             
+        for j in range(tmin, int(Nt_array[i]/2)-1):             
             tmp_1 = tmp_1 + b_R_mu[i][b*Nt_array[i]+j]/R_mu[i][j].var
             tmp_2 = tmp_2 + 1/R_mu[i][j].var
         R_tmp += [tmp_1/tmp_2]
