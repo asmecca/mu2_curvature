@@ -63,8 +63,6 @@ def get_correlators(path_to_corrs,boot_samples,Nt_array,T_array,a_inv_gev):
         Nt = Nt_array[i]
         T = T_array[i]
         T_lat += [float(float(T)/float(a_inv_gev))]
-        tmin = tminarray[i]
-        tmax = tmaxarray[i]
         path = path_to_corrs+f"/{Nt}x32/analysis_mu_{mu}"        
 
         g_zero,g_conn,cross_term,disc_term,V_sum,total=terms_corr_boot(path,'res.vector.dat',Nt,boot_samples)
