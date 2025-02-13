@@ -32,7 +32,7 @@ color_list=['darkred','red','orange','gold','#71daeb','#0fb7f5','blue']
 a_inv_gev = 6.079
 
 T_array = [0.380, 0.304, 0.253, 0.217, 0.190, 0.169, 0.152]
-T_lat = np.asarray(T_array/a_inv_gev)
+T_lat = np.asarray(T_array)/a_inv_gev
 tminarray = [3, 4, 4, 5, 6, 7, 8]
 
 Nt_array =[16, 20, 24, 28, 32, 36, 40]
@@ -107,7 +107,7 @@ for i in range(0,len(Nt_array)):
 for i in range(0,len(Nt_array)):
     b_R += [b_R_num[i]/b_R_den[i]]
 
-R_var_tot = [] #np.zeros((len(Nt_array),[]),dtype=float)
+R_var_tot = [] 
 for i in range(0,len(Nt_array)):
     tmin = 1 
     plt.xlabel(r"$\tau T$")
