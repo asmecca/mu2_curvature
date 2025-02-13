@@ -55,11 +55,12 @@ T_boot_plot = np.flip(T_boot)
 R_boot_plot = np.flip(R_boot)
 
 # Removing T=169n MeV point from interpolation
-print('length: ',len(T_boot))
-T_boot = np.delete(T_boot_plot,1,axis=0)
-R_boot = np.delete(R_boot_plot,1,axis=0)
-len_Nt = len_Nt-1
-print('length: ',len(T_boot))
+if mu != 0.0:
+    print('length: ',len(T_boot))
+    T_boot = np.delete(T_boot_plot,1,axis=0)
+    R_boot = np.delete(R_boot_plot,1,axis=0)
+    len_Nt = len_Nt-1
+    print('length: ',len(T_boot))
 
 T_mean = np.zeros(len_Nt,dtype=float)
 T_mean_plot = np.zeros(len_Nt,dtype=float)
