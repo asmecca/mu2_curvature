@@ -106,7 +106,7 @@ for i in range(0,len(Nt_array)):
 for i in range(0,len(Nt_array)):
     b_R += [b_R_num[i]/b_R_den[i]]
 
-R_var_tot = np.zeros((len(Nt_array),[]),dtype=float)
+R_var_tot = [] #np.zeros((len(Nt_array),[]),dtype=float)
 for i in range(0,len(Nt_array)):
     tmin = 1 
     plt.xlabel(r"$\tau T$")
@@ -121,7 +121,7 @@ for i in range(0,len(Nt_array)):
         R_mean[t] = np.mean(tmp[t])
         R_stdev[t] = np.std(tmp[t])
         R_var[t] = np.var(tmp[t])
-    R_var_tot[i] = R_var
+    R_var_tot += [R_var]
     plt.errorbar(x=np.asarray(corr_t[i][tmin:Nt_array[i]])*T_lat[i],y=R_mean[tmin:Nt_array[i]],yerr=R_stdev[tmin:Nt_array[i]],label=r"$T=$"+str(int(T_array[i]*1000))+"$\mathrm{MeV}$",color=color_list[i],capsize=2)
 plt.legend(ncol=2,loc='best')
 plt.text(0.5, 0.07, r'$\mu_q = 0$', fontsize=18, ha='center')
