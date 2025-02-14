@@ -17,7 +17,7 @@ do
 	echo $Nt
 	echo $mu
 	echo $T
-	if [ -d ${path_to_correlator_directory}/analysis_mu_${mu}/boot ]
+	if [ -d ${path_to_correlator_directory}/analysis_mu_${mu}/boot ] ; then
 	   rm -r ${path_to_correlator_directory}/analysis_mu_${mu}/boot
 	fi
 	python3 final-analyse-multisource.py ${path_to_correlator_directory} ${Nt} ${mu} ${T}
