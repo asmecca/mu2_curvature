@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import sys
+import gvar as gv
 from scipy.optimize import curve_fit
 from utils import correlated_chi_squared
 from utils import get_correlators_gen2l
@@ -49,6 +50,9 @@ if not os.path.exists(plotpath+'/plots'):
         os.makedirs(plotpath+'/plots')
 
 
+gv_vec=[]
+gv_axial=[]
+
 b_vec=[]
 b_axial=[]
 
@@ -71,9 +75,25 @@ for i in range(0,len(Nt_array)):
         stdev_a[t] = np.std(tmp1[t])
         mean_v[t] = np.mean(tmp2[t])
         stdev_v[t] = np.std(tmp2[t])
+    gv_vec += [gv.gvar(mean_v,stdev_v)]
+    gv_axial += [gv.gvar(mean_a,stdev_a)]
+    gv_vec[i] = np.asarray(gv_vec[i])
+    gv_axial[i] = np.asarray(gv_axial[i])        
 
 
 ################ Order O(1) ratio ############
+
+gv_R=[]
+gv_R_num=[]
+gv_R_den=[]
+
+for i in range(0,len(Nt_array)):
+        gv_R_num += [gv_vec[i]/gv_vec[i][int(Nt_array[i]/2)] - gv_axial[i]/gv_axial[i][int(Nt_array[i]/2)] ]
+        gv_R_den += [gv_axial[i]/gv_axial[i][int(Nt_array[i]/2)] + gv_vec[i]/gv_vec[i][int(Nt_array[i]/2)] ]
+
+for i in range(0,len(Nt_array)):
+    gv_R += [gv_R_num[i]/gv_R_den[i]]
+
 
 b_R=[]
 b_R_num=[]
@@ -128,8 +148,8 @@ for i in range(0,len(Nt_array)):
         tmp_1=0
         tmp_2=0
         for j in range(tmin,int(Nt_array[i]/2)-1):
-            tmp_1 = tmp_1 + b_R[i][b*Nt_array[i]+j]/((R_var_tot[i][j]))
-            tmp_2 = tmp_2 + 1/((R_var_tot[i][j]))
+            tmp_1 = tmp_1 + b_R[i][b*Nt_array[i]+j]/((gv_R[i][j].var))
+            tmp_2 = tmp_2 + 1/((gv_R[i][j].var))
         R_tmp += [tmp_1/tmp_2]
     R_av += [np.asarray(R_tmp)]
 
