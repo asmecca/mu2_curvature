@@ -12,18 +12,18 @@ plt.rc('font',**{'size':18})
 plt.rc('text', usetex=True)
 plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
 
-
+# pseudocritical temperatures for Generation 2 (2L) ensembles obtained with the renormalised chiral condensate
 Tpc_latt_2L = 167
 Tpc_latt = 182
 
-plotpath = '/Users/antoniosmecca/Documents/Physics/pdoc_Swansea/mu2/Code'
+plotpath = '.'
 
 mu=float(sys.argv[1])
 
 a_inv_gev_2L = 6.079
 a_inv_gev = 5.63
 
-################### BIS
+# getting bootstrap data for the averaged R(tau,mu^2) for each ensemble
 if mu == 0.0 :
     filename= "gen2/interpolate/boot_zero.dat"
     filename_2L= "Gen2L/interpolate/boot_gen2l_zero.dat"
@@ -46,7 +46,6 @@ for line in f.readlines():
         boot_samples = int(x[3])
 T = np.asarray(T)
 R = np.asarray(R)
-#R_err = np.asarray(R_err)
 f.close()
 
 f=open(filename_2L,'r')
@@ -56,12 +55,11 @@ for line in f.readlines():
         T_2L += [int(x[0])]
         R_2L += [float(x[1])]
         len_Nt_2L = int(x[2])
-        #R_err += [float(x[2])]
 T_2L = np.asarray(T_2L)
 R_2L = np.asarray(R_2L)
-#R_err = np.asarray(R_err)
 f.close()
 
+# Inintialising and filling R and T arrays for each ensemble
 R_boot = np.zeros((len_Nt,boot_samples),dtype=float)
 T_boot = np.zeros((len_Nt,boot_samples),dtype=float)
 for i in range(len_Nt):
@@ -98,6 +96,7 @@ if mu != 0.0:
     print('length: ',len(T_boot_2L))
 
 
+# Computing mean and standard deviation
 T_mean = np.zeros(len_Nt,dtype=float)
 R_mean = np.zeros(len_Nt,dtype=float)
 R_stdev = np.zeros(len_Nt,dtype=float)
@@ -120,6 +119,8 @@ for i in range(len_Nt_2L): #+1
     R_mean_2L_plot[i] = np.mean(R_boot_2L_plot[i])
     R_stdev_2L_plot[i] = np.std(R_boot_2L_plot[i])
 
+
+# Interpolating data using cubic splines
 x=np.arange((1/41)*a_inv_gev,(1/25)*a_inv_gev,0.0001)
 x_plot=np.arange((1/41)*a_inv_gev,(1/15)*a_inv_gev,0.0001)
 cs = CubicSpline(T_mean, R_mean)
@@ -141,6 +142,8 @@ cs_minus_2L = CubicSpline(T_mean_2L, (R_mean_2L-R_stdev_2L))
 cs_plus = CubicSpline(T_mean, (R_mean+R_stdev))
 cs_minus = CubicSpline(T_mean, (R_mean-R_stdev))
 
+
+# Finding pseudocritical temperature as the point crossing the zero axis - mean value
 i=len(x)-1
 while cs(x[i]) > 0 and i >0:
     Tpc = x[i]
@@ -168,10 +171,9 @@ Tpc_err = np.std(Tpc_boot)
 Tpc_err_2L = np.std(Tpc_boot_2L)
 
 
+# Plotting data with interpolation curve
 mu_mev = int(float(mu)*1000)
-
 plt.figure(figsize=(8.5, 5.7))
-#plt.title(r'$\mu_q = $ '+str(mu_mev)+' $\mathrm{MeV}$')
 plt.text(185,-0.15,r'$\mu_q = $ '+str(mu_mev)+' $\mathrm{MeV}$',fontsize=20)
 plt.xlabel(r'$T$ $[\mathrm{MeV}]$',fontsize=18)
 plt.ylabel(r'$\overline{R}(\mu_q,T)$',fontsize=18)
