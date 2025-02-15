@@ -169,6 +169,8 @@ fig.savefig(plotpath+f"/plots/gen2l_R_ratio_plot.png",dpi=300)
 plt.clf()
 
 ##################### O(mu^2) ratio #############################
+gv_vec_mu=[]
+gv_axial_mu=[]
 
 b_vec_mu=[]
 b_axial_mu=[]
@@ -192,7 +194,22 @@ for i in range(0,len(Nt_array)):
         stdev_a[t] = np.std(tmp1[t])
         mean_v[t] = np.mean(tmp2[t])
         stdev_v[t] = np.std(tmp2[t])
+    gv_vec_mu += [gv.gvar(mean_v,stdev_v)]
+    gv_axial_mu += [gv.gvar(mean_a,stdev_a)]
+    gv_vec_mu[i] = np.asarray(gv_vec_mu[i])
+    gv_axial_mu[i] = np.asarray(gv_axial_mu[i])                
 
+gv_R_mu=[]
+gv_R_num_mu=[]
+gv_R_den_mu=[]
+
+for i in range(0,len(Nt_array)):
+    gv_R_num_mu += [gv_vec_mu[i]/gv_vec_mu[i][int(Nt_array[i]/2)] - gv_axial_mu[i]/gv_axial_mu[i][int(Nt_array[i]/2)] ]
+    gv_R_den_mu += [gv_axial_mu[i]/gv_axial_mu[i][int(Nt_array[i]/2)] + gv_vec_mu[i]/gv_vec_mu[i][int(Nt_array[i]/2)] ]
+
+
+for i in range(0,len(Nt_array)):
+    gv_R_mu += [gv_R_num_mu[i]/gv_R_den_mu[i]]
 
 b_R_mu=[]
 b_R_num_mu=[]
@@ -210,8 +227,6 @@ for i in range(0,len(Nt_array)):
         b_R_num_mu += [R_num_tmp]
         b_R_den_mu += [R_den_tmp]        
 
-#R_num_mu = np.asarray(R_num_mu)
-#R_den_mu = np.asarray(R_den_mu)
 
 for i in range(0,len(Nt_array)):    
     b_R_mu += [b_R_num_mu[i]/b_R_den_mu[i]]
@@ -251,8 +266,8 @@ for i in range(0,len(Nt_array)):
         tmp_1=0
         tmp_2=0            
         for j in range(tmin, int(Nt_array[i]/2)-1):             
-            tmp_1 = tmp_1 + b_R_mu[i][b*Nt_array[i]+j]/R_mu_var_total[i][j]
-            tmp_2 = tmp_2 + 1/R_mu_var_total[i][j]
+            tmp_1 = tmp_1 + b_R_mu[i][b*Nt_array[i]+j]/gv_R_mu[i][j].var
+            tmp_2 = tmp_2 + 1/gv_R_mu[i][j].var
         R_tmp += [tmp_1/tmp_2]
     R_av_mu += [np.asarray(R_tmp)]
 
