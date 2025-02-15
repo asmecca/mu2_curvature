@@ -276,7 +276,7 @@ fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/gen2l_R_mu_tau_ratio_plot_mu_{mu}.pdf",dpi=300)        
 plt.clf()
 
-# Computing and plotting averaged R(tau , 0)    
+# Computing and plotting averaged R(tau , mu^2)    
 R_av_mu=[]
 for i in range(0,len(Nt_array)):
     R_tmp=[]
