@@ -28,7 +28,7 @@ if mu == 0.0 :
     filename= "gen2/interpolate/boot_zero.dat"
     filename_2L= "Gen2L/interpolate/boot_gen2l_zero.dat"
 else:
-    filename= f"gen2/interpolate/boot_full_mu_0.056.dat"
+    filename= f"gen2/interpolate/boot_full_mu_{mu}.dat"
     filename_2L= f"Gen2L/interpolate/boot_gen2l_full_mu_{mu}.dat"
 
 f=open(filename,'r')
