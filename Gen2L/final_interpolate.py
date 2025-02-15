@@ -38,7 +38,6 @@ for line in f.readlines():
         boot_samples = int(x[3])
 T = np.asarray(T)
 R = np.asarray(R)
-#R_err = np.asarray(R_err)
 f.close()
 
 # Inintialising and filling R and T arrays
