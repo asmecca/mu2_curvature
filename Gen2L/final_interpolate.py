@@ -120,7 +120,7 @@ plt.axhline(y=0.0,linestyle='--',color='darkgray')
 plt.axvline(x=1,linestyle='--',color='darkgray')
 fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/boot_gen2l_interpolate_full_mu_method1_bis_mu_{mu}.png",dpi=300)
-plt.show()
+#plt.show()
 
 g=open("interpolate/boot_gen2l_pseudo_T.dat",'a')
 for b in range(0,boot_samples):
