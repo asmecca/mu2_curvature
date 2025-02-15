@@ -88,8 +88,8 @@ gv_R_num=[]
 gv_R_den=[]
 
 for i in range(0,len(Nt_array)):
-        gv_R_num += [gv_vec[i]/gv_vec[i][int(Nt_array[i]/2)] - gv_axial[i]/gv_axial[i][int(Nt_array[i]/2)] ]
-        gv_R_den += [gv_axial[i]/gv_axial[i][int(Nt_array[i]/2)] + gv_vec[i]/gv_vec[i][int(Nt_array[i]/2)] ]
+    gv_R_num += [gv_vec[i]/gv_vec[i][int(Nt_array[i]/2)] - gv_axial[i]/gv_axial[i][int(Nt_array[i]/2)] ]
+    gv_R_den += [gv_axial[i]/gv_axial[i][int(Nt_array[i]/2)] + gv_vec[i]/gv_vec[i][int(Nt_array[i]/2)] ]
 
 for i in range(0,len(Nt_array)):
     gv_R += [gv_R_num[i]/gv_R_den[i]]
