@@ -43,13 +43,21 @@ mu = float(sys.argv[1])
 
 path_to_corr = "DATA/Gen2L" # Path to directory with name NtxNs containing the correlators
 
+# Gets the correlators for the different contributions and channels
+# corr_g_zero -> O(1) connected correlator, vector channel
+# corr_g_zero_A -> O(1) connected correlator, axial-vector channel
+# corr_total -> Correlator containing the sum of O(1) and O(mu^2) contributions at a certain value of mu, vector channel
+# corr_total_A -> Correlator containing the sum of O(1) and O(mu^2) contributions at a certain value of mu, axial-vector channel
+# boot_samples -> number of bootstrap samples used in the analysis
 corr_t,corr_g_zero,corr_g_zero_A,corr_total,corr_total_A,boot_samples = get_correlators_gen2l(path_to_corr,Nt_array,T_array,a_inv_gev,mu)
 
+# creating plots directory
 plotpath = '..'
 if not os.path.exists(plotpath+'/plots'):
         os.makedirs(plotpath+'/plots')
 
 
+# Initialising and filling the O(1) vector and axial-vector correlator arrays
 gv_vec=[]
 gv_axial=[]
 
@@ -83,6 +91,7 @@ for i in range(0,len(Nt_array)):
 
 ################ Order O(1) ratio ############
 
+# gvar ratio
 gv_R=[]
 gv_R_num=[]
 gv_R_den=[]
@@ -94,7 +103,7 @@ for i in range(0,len(Nt_array)):
 for i in range(0,len(Nt_array)):
     gv_R += [gv_R_num[i]/gv_R_den[i]]
 
-
+# bootstrap ratio
 b_R=[]
 b_R_num=[]
 b_R_den=[]
@@ -115,6 +124,8 @@ for i in range(0,len(Nt_array)):
 for i in range(0,len(Nt_array)):
     b_R += [b_R_num[i]/b_R_den[i]]
 
+
+# Plotting results for R(tau , 0) at different temperatures
 R_var_tot = [] 
 for i in range(0,len(Nt_array)):
     tmin = 1 
@@ -138,7 +149,9 @@ fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/gen2l_R_tau_ratio_plot.pdf",dpi=300)
 plt.clf()
 
-    
+
+
+# Computing and plotting averaged R(tau , 0)    
 R_av=[]
 
 for i in range(0,len(Nt_array)):
@@ -169,6 +182,8 @@ fig.savefig(plotpath+f"/plots/gen2l_R_ratio_plot.png",dpi=300)
 plt.clf()
 
 ##################### O(mu^2) ratio #############################
+
+# Initialising and filling the O(1) + O(mu^2) vector and axial-vector correlator arrays
 gv_vec_mu=[]
 gv_axial_mu=[]
 
@@ -199,6 +214,7 @@ for i in range(0,len(Nt_array)):
     gv_vec_mu[i] = np.asarray(gv_vec_mu[i])
     gv_axial_mu[i] = np.asarray(gv_axial_mu[i])                
 
+# gvar ratio
 gv_R_mu=[]
 gv_R_num_mu=[]
 gv_R_den_mu=[]
@@ -211,26 +227,28 @@ for i in range(0,len(Nt_array)):
 for i in range(0,len(Nt_array)):
     gv_R_mu += [gv_R_num_mu[i]/gv_R_den_mu[i]]
 
+# bootstrap ratio
 b_R_mu=[]
 b_R_num_mu=[]
 b_R_den_mu=[]
 
 for i in range(0,len(Nt_array)):
-        R_num_tmp=[]
-        R_den_tmp=[]
-        for b in range(0,boot_samples):
-            for t in range(0,Nt_array[i]):
-                R_num_tmp += [b_vec_mu[i][b*Nt_array[i]+t]/b_vec_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] - b_axial_mu[i][b*Nt_array[i]+t]/b_axial_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
-                R_den_tmp += [b_axial_mu[i][b*Nt_array[i]+t]/b_axial_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] + b_vec_mu[i][b*Nt_array[i]+t]/b_vec_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
-        R_num_tmp = np.asarray(R_num_tmp)
-        R_den_tmp = np.asarray(R_den_tmp)
-        b_R_num_mu += [R_num_tmp]
-        b_R_den_mu += [R_den_tmp]        
+    R_num_tmp=[]
+    R_den_tmp=[]
+    for b in range(0,boot_samples):
+        for t in range(0,Nt_array[i]):
+            R_num_tmp += [b_vec_mu[i][b*Nt_array[i]+t]/b_vec_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] - b_axial_mu[i][b*Nt_array[i]+t]/b_axial_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
+            R_den_tmp += [b_axial_mu[i][b*Nt_array[i]+t]/b_axial_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] + b_vec_mu[i][b*Nt_array[i]+t]/b_vec_mu[i][b*Nt_array[i]+int(Nt_array[i]/2)] ]
+    R_num_tmp = np.asarray(R_num_tmp)
+    R_den_tmp = np.asarray(R_den_tmp)
+    b_R_num_mu += [R_num_tmp]
+    b_R_den_mu += [R_den_tmp]        
 
 
 for i in range(0,len(Nt_array)):    
     b_R_mu += [b_R_num_mu[i]/b_R_den_mu[i]]
 
+# Plotting results for R(tau , \mu^2) at different temperatures
 mu_mev = mu*1000
 R_mu_var_total=[]
 for i in range(0,len(Nt_array)):
@@ -258,6 +276,7 @@ fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/gen2l_R_mu_tau_ratio_plot_mu_{mu}.pdf",dpi=300)        
 plt.clf()
 
+# Computing and plotting averaged R(tau , 0)    
 R_av_mu=[]
 for i in range(0,len(Nt_array)):
     R_tmp=[]
@@ -286,6 +305,7 @@ fig.savefig(plotpath+f"/plots/gen2l_R_mu_ratio_plot_mu_{mu}.png",dpi=300)
 plt.clf()
 
 ######################### COMPARISON ######################
+# comparing O(1) with O(1)+(mu^2) averaged R(tau , \mu^2)
 plt.xlabel(r"$N_{\tau}$")
 plt.ylabel(r"$R$")
 R_mean = np.zeros(len(Nt_array),dtype=float)
@@ -309,6 +329,8 @@ fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/gen2l_comp_R_plot_mu_{mu}.png",dpi=300)
 plt.clf()
 
+
+# writing results to file
 datapath = "./interpolate"
 
 if not os.path.exists(datapath):
