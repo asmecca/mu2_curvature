@@ -212,7 +212,7 @@ popt_minus = popt - perr
 popt_plus_2L = popt_2L + perr_2L
 popt_minus_2L = popt_2L - perr_2L
 
-plotpath = '/Users/antoniosmecca/Documents/Physics/pdoc_Swansea/mu2/Code'
+plotpath = '.'
 
 mu_q = np.asarray(mu_q_arr)
 mu_q = mu_q*1000*3
@@ -258,9 +258,9 @@ line7 = plt.errorbar(x=1.25,y=Bazavov[0],yerr=Bazavov[1],fmt='>',capsize=2)
 line8 = plt.errorbar(x=1.3,y=Pisa[0],yerr=Pisa[1],fmt='<',capsize=2)
 line9 = plt.errorbar(x=1.35,y=Bellwied[0],yerr=Bellwied[1],fmt='d',capsize=2)
 line10 = plt.errorbar(x=1.4,y=Pisa_old[0],yerr=Pisa_old[1],fmt='^',capsize=2)
-line11 = plt.errorbar(x=1.45,y=0.020,yerr=0.004,fmt='*',capsize=2)
+#line11 = plt.errorbar(x=1.45,y=0.020,yerr=0.004,fmt='*',capsize=2)
 
-handles = [line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11]  # `None` adds a blank space
+handles = [line1, line2, line3, line4, line5, line6, line7, line8, line9, line10]  # `None` adds a blank space
 labels = ["Generation 2", "Generation 2L", "", "", "", r"Borsanyi $et$ $al.$ 2020", "HotQCD 2018", "Bonati $et$ $al.$ 2018",  "Bellwied $et$ $al.$ 2015", "Bonati $et$ $al.$ 2015"] #1508.07599
 plt.xticks([])
 plt.legend(handles=handles,
