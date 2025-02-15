@@ -11,15 +11,15 @@ plt.rc('font',**{'size':11})
 plt.rc('text', usetex=True)
 plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
 
-
+# pseudocritical temperature obtained from the chiral condensate
 Tpc_latt = 182
 
-plotpath = '/Users/antoniosmecca/Documents/Physics/pdoc_Swansea/mu2/Code'
+plotpath = '..'
 
 mu=float(sys.argv[1])
 a_inv_gev = 5.63
 
-################### BIS
+# getting bootstrap values of averaged R(tau , mu^2)
 if mu == 0.0 :
     filename= "interpolate/boot_zero.dat"
     f=open(filename,'r')
@@ -38,9 +38,9 @@ for line in f.readlines():
         boot_samples = int(x[3])
 T = np.asarray(T)
 R = np.asarray(R)
-#R_err = np.asarray(R_err)
 f.close()
 
+# Inintialising and filling R and T arrays
 R_boot = np.zeros((len_Nt,boot_samples),dtype=float)
 T_boot = np.zeros((len_Nt,boot_samples),dtype=float)
 for i in range(len_Nt):
@@ -57,6 +57,7 @@ R_boot_plot = np.flip(R_boot)
 T_boot = T_boot_plot
 R_boot = R_boot_plot
 
+# Computing mean and standard deviation
 T_mean = np.zeros(len_Nt,dtype=float)
 T_mean_plot = np.zeros(len_Nt,dtype=float)
 R_mean = np.zeros(len_Nt,dtype=float)
@@ -71,6 +72,8 @@ for i in range(len_Nt):
     R_mean_plot[i] = np.mean(R_boot_plot[i])
     R_stdev_plot[i] = np.std(R_boot_plot[i])
 
+
+# Interpolating data using cubic splines
 x=np.arange((1/41)*a_inv_gev,(1/25)*a_inv_gev,0.0001)
 x_plot=np.arange((1/41)*a_inv_gev,(1/15)*a_inv_gev,0.0001)
 cs = CubicSpline(T_mean, R_mean)
@@ -83,6 +86,8 @@ for i in range(0,boot_samples):
 cs_plus = CubicSpline(T_mean, (R_mean+R_stdev))
 cs_minus = CubicSpline(T_mean, (R_mean-R_stdev))
 
+
+# Finding pseudocritical temperature as the point crossing the zero axis - mean value
 i=len(x)-1
 while cs(x[i]) > 0 and i >0:
     Tpc = x[i]
@@ -98,6 +103,8 @@ for b in range(0,boot_samples):
 
 Tpc_err = np.std(Tpc_boot)
 
+
+# Plotting data with interpolation curve
 mu_mev = int(float(mu)*1000)
 plt.xlabel(r'$T/T_{c}$')
 plt.ylabel(r'$R(\mu_q;T)$')
@@ -114,6 +121,8 @@ fig=plt.gcf()
 fig.savefig(plotpath+f"/plots/boot_interpolate_full_mu_method1_bis_mu_{mu}.png",dpi=300)
 #plt.show()
 
+
+# Writing data to file
 g=open("interpolate/boot_pseudo_T.dat",'a')
 for b in range(0,boot_samples):
     g.write(str(mu)+' '+str(Tpc_boot[b])+' '+str(boot_samples)+'\n') 
