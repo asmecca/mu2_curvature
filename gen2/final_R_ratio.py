@@ -34,7 +34,7 @@ a_inv_gev = 5.63
 
 T_array = [0.352, 0.281, 0.235, 0.201, 0.176, 0.156, 0.141]
 T_lat = np.asarray(T_array)/a_inv_gev
-tminarray = [3, 4, 4, 5, 6, 7, 8]
+tminarray = [4, 5, 5, 6, 7, 8, 8]
 
 Nt_array =[16, 20, 24, 28, 32, 36, 40]
 
