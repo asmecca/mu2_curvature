@@ -75,15 +75,18 @@ def fit_func(x,k):
 def fit_func_2L(x,k):
     return T0_2L*(1-k*(x/(T0_2L**2)))
 
+# Other groups results
 Budapest = [0.0153,0.0018] #0.0153(18)
 Pisa = [0.0145,0.0025] #0.0145(25)
 Pisa_old = [0.013,0.002] #0.013(2)(1)
 Bazavov = [0.012, 0.004] #0.012(4)
 Bellwied = [0.0149,0.0021]
 
+# Pseudocritical temperatures obtained using the chiral condensate for each ensemble
 T_chiral = [182,2] #182(2)
 T_chiral_2L = [167,3] #167(3)
 
+# Getting bootstrap data for averaged R(tau,\mu^2) for each ensemble
 filename= f"gen2/interpolate/boot_pseudo_T.dat"
 filename_2L= f"Gen2L/interpolate/boot_gen2l_pseudo_T.dat"
 f=open(filename,'r')
@@ -117,6 +120,8 @@ T_2L = np.asarray(T_2L)*1000
 len_mu_2L = int(len(mu_2L)/boot_samples)
 f.close()
 
+
+# Computing mean and standard deviation for each ensemble
 mu_boot = np.zeros((len_mu,boot_samples),dtype=float)
 mu_q_boot = np.zeros((len_mu,boot_samples),dtype=float)
 T_boot = np.zeros((len_mu,boot_samples),dtype=float)
@@ -166,47 +171,57 @@ for i in range(0,len_mu_2L):
     mu_q_arr_2L[i] = mu_q_boot_2L[i][0]
     
 
+# removing the last three points from Generation 2 array since they are not included in the fit
 T_boot_cut = np.zeros((len_mu-3,boot_samples),dtype=float)
 for i in range(0,len_mu-3):
     for b in range(0,boot_samples):
         T_boot_cut[i][b] = T_boot[i][b]
 
+# Computing covariance and correlation matrices - Gen2
 cov_matrix = np.cov(T_boot_cut)
 correlation_matrix = calculate_correlation_matrix(T_boot_cut)
 plot_correlation_matrix(correlation_matrix)
 plot_correlation_matrix(cov_matrix)
 
-
+# Computing covariance and correlation matrices - Gen2L
 cov_matrix_2L = np.cov(T_boot_2L)
 correlation_matrix_2L = calculate_correlation_matrix(T_boot_2L)
 plot_correlation_matrix(correlation_matrix_2L)
 plot_correlation_matrix(cov_matrix_2L)
 
+# Computing standard error on pseudocritical temperatures for different mu^2 and for each ensemble
 T_err = np.sqrt(np.diag(cov_matrix))
 T_err_2L = np.sqrt(np.diag(cov_matrix_2L))
 
 T0 = T_mean[0]
 T0_2L = T_mean_2L[0]
 
+# fitting the Generation 2 data
 p0 = [1.]
 popt, pcov = curve_fit(fit_func, mu_arr[:(len_mu-3)], T_mean[:int(len_mu-3)], sigma=cov_matrix, absolute_sigma=True,p0=p0)
-p0_2L = [popt]
 
+# fitting the Generation 2L data
+p0_2L = [1.]
 popt_2L, pcov_2L = curve_fit(fit_func_2L, mu_arr_2L[:(len_mu_2L)], T_mean_2L[:int(len_mu_2L)], sigma=cov_matrix_2L, absolute_sigma=True,p0=p0_2L)
 
+# Finding the standard error of kappa
 perr = np.sqrt(np.diag(pcov))
 perr_2L = np.sqrt(np.diag(pcov_2L))
 
 print('Gen2: ',popt[0])
 print('Gen2L: ',popt_2L[0])
 
+# Calculating correlated chi^2 
 corr_chi2 = correlated_chi2(mu_arr[:(len_mu-3)], T_mean[:(len_mu-3)], cov_matrix, fit_func, popt)
 corr_chi2_red = corr_chi2/(len(mu_arr[:(len_mu-3)])-1)
-print('corr chi2= ',corr_chi2_red)
+print('corr chi2 d.o.f = ',corr_chi2_red)
 corr_chi2_2L = correlated_chi2(mu_arr_2L[:(len_mu_2L)], T_mean_2L[:(len_mu_2L)], cov_matrix_2L, fit_func_2L, popt)
 corr_chi2_red_2L = corr_chi2_2L/(len(mu_arr[:(len_mu_2L)])-1)
-print('2L corr chi2= ',corr_chi2_red_2L)
+print('2L corr chi2 d.o.r. = ',corr_chi2_red_2L)
 
+
+
+# Plotting data with fitlines
 popt_plus = popt + perr
 popt_minus = popt - perr
 popt_plus_2L = popt_2L + perr_2L
@@ -239,6 +254,7 @@ fig.savefig(plotpath+f"/plots/boot_fit_final_mu_method1.pdf",dpi=300)
 plt.show()
 
 
+# Plotting results for kappa
 res = [popt[0],perr[0]]
 res_2L = [popt_2L[0],perr_2L[0]]
 
