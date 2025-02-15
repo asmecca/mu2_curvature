@@ -245,7 +245,7 @@ res_2L = [popt_2L[0],perr_2L[0]]
 plt.ylim(0.005,0.050,0.005)
 plt.ylabel(r'$\kappa$')
 line1 = plt.errorbar(x=1,y=res[0],yerr=res[1],fmt='o',capsize=2)
-line2 = plt.errorbar(x=1.02,y=res_2L.mean,yerr=res_2L.sdev,fmt='s',capsize=2)
+line2 = plt.errorbar(x=1.02,y=res_2L[0],yerr=res_2L[1],fmt='s',capsize=2)
 plt.axhspan(res[0]-res[1], res[0]+res[1], alpha=0.2, color='#1f77b4')
 plt.axhspan(res_2L[0]-res_2L[1], res_2L[0]+res_2L[1], alpha=0.2, color='#ff7f0e')
 plt.axvline(x=1.05,linestyle='--',color = 'darkgray')
