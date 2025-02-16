@@ -25,4 +25,6 @@ Analysis scripts for the study of the QCD pseudocritical line curvature using la
 
 8. run 'plot_interpolate.py' to obtain the plots showing the interpolation of the data as shown in the paper. It takes the value of mu_q as input
 
+The gen2 directory contains also the script 'comp_free_corr.py' to compare the full lattice correlator with the free correlator obtained analytically for the same timeslices as the lattice correlator. Also in this case, one needs to modify the script with the correct path to the gen2 directory NtxNs.
+
 Attention! - ''launch_interpolate.sh'' appends the values of Tpc to a file, so if it is not the first run you should delete the previous run
