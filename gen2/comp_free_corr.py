@@ -57,8 +57,8 @@ b_vec=[]
 b_axial=[]
 
 for i in range(0,len(Nt_array)):
-        b_vec += [np.asarray(big_g[i])]
-        b_axial += [np.asarray(big_g_A[i])]
+        b_vec += [np.asarray(corr_g_zero[i])]
+        b_axial += [np.asarray(corr_g_zero_A[i])]
         b_vec[i] = np.asarray(b_vec[i])
         b_axial[i] = np.asarray(b_axial[i])
         tmp1 = np.zeros((Nt_array[i],2000),dtype=object)
@@ -136,7 +136,7 @@ for i in range(0,len(Nt_array)):
                 tmp[t][b] = float(b_R_naive[i][b*Nt_array[i]+t])
             R_naive_mean[t] = np.mean(tmp[t])
             R_naive_stdev[t] = np.std(tmp[t])
-        plt.errorbar(x=np.asarray(big_t[i][tmin:Nt_array[i]])*T_lat[i],y=R_naive_mean[tmin:Nt_array[i]],yerr=R_naive_stdev[tmin:Nt_array[i]],label=r"$T=$"+str(int(T_array[i]*1000))+"$\mathrm{MeV}$",color=color_list[i],capsize=3,markersize=8)
+        plt.errorbar(x=np.asarray(corr_t[i][tmin:Nt_array[i]])*T_lat[i],y=R_naive_mean[tmin:Nt_array[i]],yerr=R_naive_stdev[tmin:Nt_array[i]],label=r"$T=$"+str(int(T_array[i]*1000))+"$\mathrm{MeV}$",color=color_list[i],capsize=3,markersize=8)
 
 for i in range(len(Nt_array)):
     if i < len(tag_arr)-2:
