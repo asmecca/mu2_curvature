@@ -143,7 +143,6 @@ for i in range(0,len(Nt_array)):
 for i in range(0,len(Nt_array)):
     if i < len(tag_arr)-2:
         tmin = 1
-        tmax = tmaxarray[i]        
         plt.xlabel(r"$\tau T$",fontsize=16)
         plt.ylabel(r"$R(\tau,0)$",fontsize=16)
         R_naive_mean = np.zeros(Nt_array[i],dtype=float)
