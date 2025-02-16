@@ -14,6 +14,24 @@ from utils import get_correlators_gen2
 
 from cycler import cycler
 
+def get_corr(filename,tag,Nt):
+    lookup = tag #' G0.S0'
+    numb_lines=[]
+    corr=[]
+    with open(filename) as myFile:
+        for num, line in enumerate(myFile, 1):
+            if lookup in line:
+                numb_lines += [int(num)]
+    end_num=numb_lines[0]+Nt
+    f=open(filename,'r')
+    content=f.readlines()
+    G0=content[(numb_lines[0]+1):end_num]
+    corr=np.zeros(Nt-1,dtype=float)
+    time=np.zeros(Nt-1,dtype=float)    
+    for i in range(0,len(G0)):        
+        time[i] = float(G0[i].split()[0])
+        corr[i] = float(G0[i].split()[1])
+    return time,corr
 
 plt.rc('font',**{'size':14})
 plt.rc('text', usetex=True)
