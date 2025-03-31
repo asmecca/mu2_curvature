@@ -236,7 +236,7 @@ for i in range(0,len(Nt_array)):
         tmin = 1
         plt.xlabel(r"$\tau T$")
         plt.ylabel(r"$R(\tau,\mu_q)$")
-        plt.title('Gen2L')
+        plt.title('Gen2')
         R_mu_mean = np.zeros(Nt_array[i],dtype=float)
         R_mu_stdev = np.zeros(Nt_array[i],dtype=float)
         R_mu_var = np.zeros(Nt_array[i],dtype=float)
