@@ -9,7 +9,7 @@ Analysis scripts for the study of the QCD pseudocritical line curvature using la
 
 # Instructions:
 
-1. unzip gen2.zip and gen2l.zip
+1. unzip gen2.zip and gen2l.zip downloaded from https://doi.org/10.5281/zenodo.14876523
 
 2. modify 'iter_mu2.sh' in both gen2 and Gen2L directories, inserting the correct path to the directories NtxNs
 
