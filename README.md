@@ -1,5 +1,5 @@
 # mu2_curvature
-Analysis scripts for the study of the QCD pseudocritical line curvature using lattice QCD described in 2412.20922
+Analysis scripts for the study of the QCD pseudocritical line curvature using lattice QCD described in 2412.20922, published in https://doi.org/10.1103/wjm8-4smh
 
 # Requirements:
 - Any version of Python 3 available
