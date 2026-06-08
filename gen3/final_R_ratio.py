@@ -30,13 +30,13 @@ plt.rc('lines', linestyle='')
 marker_list=['v','<','^','>','o','s','p']
 color_list=['darkred','red','orange','gold','#71daeb','#0fb7f5','blue']
 
-a_inv_gev = 5.63
+a_inv_gev = 12.82
 
-T_array = [0.352, 0.281, 0.235, 0.201, 0.176, 0.156, 0.141]
+T_array = [0.356, 0.320, 0.267, 0.229, 0.200, 0.160,0.100]
 T_lat = np.asarray(T_array)/a_inv_gev
-tminarray = [4, 5, 5, 6, 7, 8, 8]
+tminarray = [4, 5, 5, 6, 7, 8, 8] #This will have to be changed
 
-Nt_array =[16, 20, 24, 28, 32, 36, 40]
+Nt_array =[36, 40, 48, 56, 64, 80, 128]
 
 mu = float(sys.argv[1])
 
