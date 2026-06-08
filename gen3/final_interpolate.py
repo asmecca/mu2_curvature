@@ -17,7 +17,7 @@ Tpc_latt = 182
 plotpath = '..'
 
 mu=float(sys.argv[1])
-a_inv_gev = 5.63
+a_inv_gev = 12.82
 
 # getting bootstrap values of averaged R(tau , mu^2)
 if mu == 0.0 :
